@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserService } from 'app/common/data/user';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { IResult } from 'app/common/config';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { enterTransition } from '../router.animation';
 
 
@@ -18,9 +18,6 @@ const mobileValidator = (control: FormControl):{[key:string]: boolean | string} 
 const codeValidator = (control: FormControl):{[key:string]: boolean | string} =>{
     if(!control.value) {
         return {invalid: true, msg: '密码不能为空'};
-    }
-    else if(control.value.length !== 4){
-        return {invalid: true, msg: '密码4位'};
     }
 }
 
@@ -41,16 +38,16 @@ const codeValidator = (control: FormControl):{[key:string]: boolean | string} =>
     )],
 })
 export class CLogin implements AfterViewInit {
-    constructor(private user : UserService, private router: Router, private cdr: ChangeDetectorRef){
+    constructor(private user : UserService, private router: Router, private route: ActivatedRoute){
         // this.user.download('https://peapix.com/bing/feed?country=us').then((res: string)=>{
         //     let a = res.match(/<url>(.+?)<\/url>/g)
         // })
     }
     bg: string = './assets/img/bg.jpg';
-    async ngAfterViewInit(){
-        this.step = 2;
-        if(localStorage.getItem('logined1')){
-            this.router.navigate(['/main/home'])
+    ngAfterViewInit(){
+        
+        if(this.user.myId()){
+            this.router.navigate(['/user/list'], {queryParams: {mode: 'readonly'}})
         }
     }
     mobile = new FormControl('', [
@@ -63,27 +60,13 @@ export class CLogin implements AfterViewInit {
         mobile: this.mobile,
         code: this.code
     });
-    step: number = 2;
     submit(){
-        if(this.mobile.valid && this.step == 1){
-            /* await this.user.next({mobile: this.mobile.value}).catch(res=>{ 
-                console.log(res)
-                this.mobile.setErrors(res.data.msg) 
-            }); */
-            this.step = 2;
-        }else if(this.code.valid && this.step == 2) {
-            /* await this.user.next({mobile: this.mobile.value, captcha: this.code.value}).catch(res=>{ 
-                console.log(res)
-                this.code. setErrors({invalid: true, msg: res.data.msg}) 
-            }); */
-            let res =  this.user.check({label: this.mobile.value}).then(res =>{
+        if(this.form.valid) {
+            this.user.login(this.mobile.value, this.code.value).then(res =>{
                 if(res){
-                    localStorage.setItem('logined1',res.id);
-                    this.router.navigate(['/main'])
+                    this.router.navigate(['/user/list'],{queryParams: {mode: 'readonly'}})
                 }
             });
-           
-            //this.cdr.detectChanges();
         }else {
             this.form.markAllAsTouched();
         }

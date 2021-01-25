@@ -1,5 +1,5 @@
 <table #container mat-table [dataSource]="dataSource" matSort *ngIf="layout=='horizontal'">
-    <ng-container *ngFor="let col of columns; let j = index" [matColumnDef]="col.position">
+    <ng-container *ngFor="let col of columns; let j = index" [matColumnDef]="col.position">xxx{{col.position}}
         <ng-container *ngIf="col.title">
             <ng-container *ngIf="col.sort">
                 <th mat-header-cell *matHeaderCellDef  mat-sort-header   [ngStyle]="col.style(0,j)"> {{col.title}}</th>
@@ -29,7 +29,7 @@
         </td>
     </ng-container>
     <tr mat-header-row *matHeaderRowDef="columns" ></tr>
-    <tr mat-row *matRowDef="let row; columns: columns;"></tr>
+    <tr mat-row *matRowDef="let row; columns: cols;"></tr>
 </table>
 <table #container mat-table [dataSource]="dataSource" matSort *ngIf="layout=='vertical' && rows">
     <ng-container  [matColumnDef]="col" *ngFor="let col of rows; let j = index">

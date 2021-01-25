@@ -10,56 +10,43 @@ import { CommonModule } from '@angular/common';
 import { CLogin } from './component.login/CPNT.login';
 import { LayoutLogin } from './layout.user';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { CProfile } from './component.profile/CPNT.profile';
-import { UploaderModule } from 'app/common/uploader/uploader.module';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { MatStepperModule } from '@angular/material/stepper';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { DialogModule } from 'app/common/dialog/dialog.module';
-import { CWFlow } from './component.wflow/CPNT.wflow';
-import { CChangeWflow } from './component.wflow/CPNT.change.wflow';
-import { CWFlowGroup } from './component.wflow/CPNT.group.wflow';
-import { CWFlowFlow } from './component.wflow/CPNT.flow.wflow';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatSelectModule } from '@angular/material/select';
-import { MatTreeModule } from '@angular/material/tree';
-import { CTree } from './component.wflow/CPNT.tree';
-import { CUsers } from './component.setting/CPNT.users';
-import { TableModule } from 'app/common/table/table.module';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatRadioModule } from '@angular/material/radio';
+import { CList } from './component.list/CPNT.list';
+import { CDetail } from './component.detail/CPNT.detail';
+import { CInput } from './component.input/CPNT.input';
 
 @NgModule({
     imports: [
         CommonModule,
         LayoutRoutingModule,
-        MatIconModule,
-        MatButtonModule,
-        MatToolbarModule,
         FlexLayoutModule,
-        MatCardModule,
         FormsModule,
         ReactiveFormsModule,
+        MatIconModule,
+        MatButtonModule,
         MatInputModule,
-        UploaderModule,
         MatAutocompleteModule,
-        MatStepperModule,
         MatCheckboxModule,
-        DialogModule,
         MatTabsModule,
+        MatCardModule,
+        MatToolbarModule,
         MatSelectModule,
-        MatTreeModule,
-        TableModule
+        MatDividerModule,
+        MatRadioModule,
+        DialogModule,
     ],
     declarations: [
         LayoutLogin,
         CLogin,
-        CProfile,
-        CWFlow,
-        CUsers,
-        CChangeWflow,
-        CWFlowGroup,
-        CWFlowFlow,
-        CTree,
-        
+        CList,
+        CDetail,
+        CInput
     ],
     
     

@@ -32,7 +32,7 @@ export interface IColumn {
 }
 
 @Component({
-    selector: 'tabler',
+    selector: 'ctable',
     templateUrl: './CPNT.table.html',
     styleUrls: ['./CPNT.table.css'],
 })
@@ -51,14 +51,14 @@ export class CTable extends Bus implements AfterViewInit  {
                 return observableOf([]);
             })
         )
-        console.log('columns i:', JSON.stringify(this.columns));
+        console.log('columns i:', JSON.stringify(this.cols));
         
     }
     ngOnChanges(): void {
         if(this.layout == 'horizontal'){
             this.dataSource.data = this.model;
-        }else if(this.columns && this.columns.length > 0 && this.model && this.model.length > 0){
-            this.dataSource.data = this.columns.map(col => this.formatInRow(col.position, col.title));
+        }else if(this.cols && this.cols.length > 0 && this.model && this.model.length > 0){
+            this.dataSource.data = this.cols.map(col => this.formatInRow(col.position, col.title));
             this.rows = ['0'].concat(this.model.map((_,i) => (i+1).toString()));
         }
         this.cdr.detectChanges();
@@ -77,7 +77,7 @@ export class CTable extends Bus implements AfterViewInit  {
         return JSON.stringify(r);
     }
     rows;
-    @Input() columns: IColumn[];
+    @Input() cols: IColumn[];
     @Input() layout: 'vertical' | 'horizontal' = 'horizontal';
     @Input() pageLen: number;
     @Input() pageSize: number;
